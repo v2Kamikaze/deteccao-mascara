@@ -6,4 +6,4 @@
 ### pip install matplotlib
 ### pip install glob
 ## Execute primeiro o arquivo main.py para o treinamento da rede, o número de épocas de treinamento está como padrão 10.
-## Após treinar a rede, basta executar test.py para verificar se a rede consegue separar pessoas com máscara e sem máscara.
+## Após treinar a rede, basta executar test.py para verificar se a rede consegue indentificar pessoas com máscara e sem máscara.
