@@ -58,6 +58,9 @@ net_model.add(
 )
 
 net_model.add(MaxPool2D(pool_size=(2, 2)))
+
+# Dropout de 30% nos neurônios para que não ocorra overfitting, que é quando um modelo estatístico se ajusta 
+# muito bem ao conjunto de dados anteriormente observado, mas se mostra ineficaz para prever novos resultados.
 net_model.add(Dropout(0.3))
 
 net_model.add(
@@ -70,8 +73,7 @@ net_model.add(
 
 net_model.add(MaxPool2D(pool_size=(2, 2)))
 
-# Dropout de 30% nos neurônios para que não ocorra overfitting, que é quando um modelo estatístico se ajusta 
-# muito bem ao conjunto de dados anteriormente observado, mas se mostra ineficaz para prever novos resultados.
+# Dropout de 30% nos neurônios.
 net_model.add(Dropout(0.3))
 
 # Achatando as entradas para um vetor, para assim passar para a camada completamente conectada(Dense).
