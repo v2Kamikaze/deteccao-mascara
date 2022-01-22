@@ -17,11 +17,15 @@ from keras_preprocessing.image.image_data_generator import ImageDataGenerator
 
 EPOCHS: int = 10
 PATH = "./dataset"
-BATCH_SIZE: int = 16
+BATCH_SIZE: int = 32
 UNITS: int = 256  # 256, 128, 64
+KERNEL_SIZE: int = 2
+FILTERS: int = 64
 
 data_generator: ImageDataGenerator = ImageDataGenerator(
-    rescale=1/255, validation_split=0.3)
+    rescale=1/255, 
+    validation_split=0.3,
+)
 
 # Dados para treino
 train_generator: DirectoryIterator = data_generator.flow_from_directory(
@@ -46,8 +50,8 @@ validation_generator: DirectoryIterator = data_generator.flow_from_directory(
 net_model: Sequential = Sequential()
 net_model.add(
     Conv2D(
-        filters=64,
-        kernel_size=2,
+        filters=FILTERS,
+        kernel_size=KERNEL_SIZE,
         activation="relu",
         input_shape=(256, 256, 3),
     )
@@ -58,18 +62,23 @@ net_model.add(Dropout(0.3))
 
 net_model.add(
     Conv2D(
-        filters=128,
-        kernel_size=2,
+        filters=FILTERS*2,
+        kernel_size=KERNEL_SIZE,
         activation="relu",
     )
 )
 
 net_model.add(MaxPool2D(pool_size=(2, 2)))
+
+# Dropout de 30% nos neurônios para que não ocorra overfitting, que é quando um modelo estatístico se ajusta 
+# muito bem ao conjunto de dados anteriormente observado, mas se mostra ineficaz para prever novos resultados.
 net_model.add(Dropout(0.3))
 
+# Achatando as entradas para um vetor, para assim passar para a camada completamente conectada(Dense).
 net_model.add(Flatten())
 
 net_model.add(Dense(units=UNITS, activation="relu"))
+# Dropout de 50% nos neurônios.
 net_model.add(Dropout(0.5))
 
 # Duas classes [com ou sem máscara] e sigmoid para dar a probabilidade de acerto.
