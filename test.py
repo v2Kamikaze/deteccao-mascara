@@ -22,15 +22,15 @@ test_imgs = np.array([img_to_array(load_img(image_name, target_size=(256,256), c
 # Recuperando os resultados vindos da predição da rede.
 y_pred = net_model.predict(test_imgs)
 # Valores esperados.
-y_true = [0,0,0,0,0,0,1,1,1,1,1,1]
+y_true = [0,0,0,0,0,0,0,1,1,1,1,1,1]
 # Classes.
 labels = ["Sem máscara", "Com máscara"]
 
 figure = plt.figure(figsize=(8, 8))
 
 
-for i in range(12):
-    ax = figure.add_subplot(4, 3, i+1, xticks=[], yticks=[])
+for i in range(len(y_true)):
+    ax = figure.add_subplot(4, 4, i+1, xticks=[], yticks=[])
     img = mpimg.imread(test_set[i])
     ax.imshow(img)
     predict_index = np.argmax(y_pred[i])
