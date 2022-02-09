@@ -35,6 +35,6 @@ for i in range(len(y_true)):
     ax.imshow(img)
     predict_index = np.argmax(y_pred[i])
     true_index = y_true[i]
-    ax.set_title(f"Pred = {labels[predict_index]} (Exp = {labels[true_index]}) | {y_pred[i][predict_index]:.4}", color="green" if predict_index == true_index else "red")
+    ax.set_title(f"Pred = {labels[predict_index]} (Exp = {labels[true_index]}) | {y_pred[i][predict_index]:.5}", color="green" if predict_index == true_index else "red")
 
 plt.show()
