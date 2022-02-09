@@ -28,8 +28,6 @@ labels = ["Sem máscara", "Com máscara"]
 
 figure = plt.figure(figsize=(8, 8))
 
-plt.plot(y_pred, y_true)
-plt.show()
 
 for i in range(len(y_true)):
     ax = figure.add_subplot(5, 3, i+1, xticks=[], yticks=[])
