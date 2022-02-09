@@ -12,6 +12,7 @@ from keras.layers import Conv2D, MaxPool2D, Dropout, Flatten, Dense
 from keras import Sequential
 from keras_preprocessing.image.directory_iterator import DirectoryIterator
 from keras_preprocessing.image.image_data_generator import ImageDataGenerator
+import matplotlib.pyplot as plt
 
 
 
@@ -100,7 +101,6 @@ checkpoint: ModelCheckpoint = ModelCheckpoint(
     verbose=1,
     mode="min",
     save_best_only=True,
-
 )
 
 early_stop: EarlyStopping = EarlyStopping(
@@ -111,7 +111,16 @@ early_stop: EarlyStopping = EarlyStopping(
     mode="min",
 )
 
-net_model.fit(
+""" net_model.fit(
+    train_generator,
+    steps_per_epoch=train_generator.samples/BATCH_SIZE,
+    validation_data=validation_generator,
+    validation_steps=validation_generator.samples/BATCH_SIZE,
+    epochs=EPOCHS,
+    callbacks=[checkpoint, early_stop],
+) """
+
+history = net_model.fit(
     train_generator,
     steps_per_epoch=train_generator.samples/BATCH_SIZE,
     validation_data=validation_generator,
@@ -119,6 +128,24 @@ net_model.fit(
     epochs=EPOCHS,
     callbacks=[checkpoint, early_stop],
 )
+
+
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+# summarize history for loss
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+
 
 """
 _________________________________________________________________
